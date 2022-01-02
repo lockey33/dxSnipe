@@ -34,126 +34,8 @@ class Home extends React.Component {
             await this.context.global.actions.init()
         }
 
-        if(this.context.global.state.currentAccount){
-            console.log(this.context.global.state.bddWallet.paymentWallet)
-            if(this.context.global.state.bddWallet.premium === false){
-                await this.context.global.actions.listenPayment()
-                await this.refreshData(10000, true)
-
-            }else{
-                await this.context.global.actions.listenBnb()
-                await this.refreshData(60000)
-            }
-        }
-
     }
 
-
-
-    refreshData = async (timer, waitPayment = false) => {
-        setInterval(async () => {
-            await this.context.global.actions.checkWallet(this.context.global.state.currentAccount)
-            if(waitPayment === true && this.context.global.state.bddWallet.premium === false){
-                const balance = parseFloat(this.context.global.state.bddWallet.paymentWallet.balance)
-                const required = parseFloat("0.095")
-                if(balance >= required){
-                    console.log('paid', balance, required)
-                    await this.context.global.actions.setPremiumNow(this.context.global.state.bddWallet.paymentWallet.address, this.context.global.state.bddWallet.buyerAddress)
-                    await this.context.global.actions.checkWallet(this.context.global.state.bddWallet.buyerAddress)
-                }
-            }
-
-        }, timer)
-    }
-
-    forceSnipeWallets = async() => {
-        const response = await axios.post(apiUrl + '/createSnipeWallets', {walletAddress: this.context.global.state.currentAccount})
-        return response
-    }
-
-    handlePresale = (e) => {
-        const input = e.target
-        const presaleAddress = input.value
-        this.setState({presaleAddress})
-    }
-
-    handleContribute = (e) => {
-        const input = e.target
-        const contributeAmount = input.value
-        this.setState({contributeAmount})
-    }
-
-    handleGasPrice = (e) => {
-        const input = e.target
-        const gasPrice = input.value
-        this.setState({gasPrice})
-    }
-    handleGasLimit = (e) => {
-        const input = e.target
-        const gasLimit = input.value
-        this.setState({gasLimit})
-    }
-
-    handleLogs = async (walletAddress) => {
-        let wallet = this.context.global.state.bddWallet
-
-        wallet.snipeWallets.map((wallet) => {
-            if(wallet.address === walletAddress){
-                if(wallet.showLogs === true){
-                    wallet.showLogs = false
-                }else{
-                    wallet.showLogs = true
-                }
-            }
-            return wallet.showLogs
-        })
-        await this.context.global.actions.updateWalletState(wallet)
-
-    }
-
-    handlePrivateKey = async (walletAddress) => {
-        let wallet = this.context.global.state.bddWallet
-
-        wallet.snipeWallets.map((wallet) => {
-            if(wallet.address === walletAddress){
-                if(wallet.showPrivateKey === true){
-                    wallet.showPrivateKey = false
-                }else{
-                    wallet.showPrivateKey = true
-                }
-            }
-            return wallet.showPrivateKey
-        })
-        await this.context.global.actions.updateWalletState(wallet)
-
-    }
-
-    launchSnipe = async () => {
-        console.log('launch')
-        const snipeWallet = this.state.snipeWalletAddress
-        let snipeWalletBalance = 0
-        this.context.global.state.bddWallet.snipeWallets.map((wallet) => {
-            if(wallet.address === snipeWallet){
-                snipeWalletBalance = wallet.balance
-            }
-            return null
-        })
-        const contributeAmount = this.state.contributeAmount
-        console.log(snipeWalletBalance, contributeAmount)
-        let funds = false
-        if(parseFloat(snipeWalletBalance) >= parseFloat(contributeAmount)){
-            funds = true
-        }
-        if(this.context.global.state.bddWallet.premium === true && funds === true){
-            await this.context.global.actions.snipe(this.state)
-            this.closeSnipeModal()
-            await this.context.global.actions.checkWallet(this.context.global.state.currentAccount)
-        }else if(funds === false){
-            alert('Insufficient funds, please send BNB to your snipe wallet')
-        }else{
-            alert('You need a premium account to snipe')
-        }
-    }
 
     connectWallet = async () => {
         await this.context.global.actions.connect()
@@ -162,54 +44,10 @@ class Home extends React.Component {
         this.setState({ isModalOpen: true })
     }
 
-    closeModal= async () => {
-        this.setState({ isModalOpen: false })
-        const bddWallet = this.context.global.state.bddWallet
 
-        bddWallet.snipeWallets.map((wallet) => {
-            wallet.showPrivateKey = false
-            wallet.showLogs = false
-
-            return wallet
-        })
-
-        await this.context.global.actions.updateWalletState(bddWallet)
+    claim = async() => {
+            await this.context.global.actions.claim("0xe2bc3c5c8d590f83d8916549533e8d52f68c2049")
     }
-
-    handlePresaleStartTime = async (date) => {
-        this.setState({presaleStartTime: date})
-    }
-
-    openSnipeModal(){
-        if(!this.state.presaleAddress || !this.state.contributeAmount || !this.state.gasLimit || !this.state.gasLimit || !this.state.presaleStartTime || !this.state.snipeWalletAddress){
-            alert("Please fill in all the fields of the form")
-        }else{
-            this.setState({snipeModal: true})
-            let eventTime= moment(this.state.presaleStartTime)
-            let currentTime = moment()
-
-            console.log(eventTime)
-            console.log('time',currentTime)
-
-            let diff = moment(eventTime).diff(currentTime);
-            let duration  = moment.duration(diff)
-
-            setInterval(() =>{
-                currentTime = moment()
-                diff = moment(eventTime).diff(currentTime);
-                duration  = moment.duration(diff)
-                this.setState({countDown: duration._data.hours + ":" + duration._data.minutes + ":" + duration._data.seconds})
-            }, 1000);
-        }
-    }
-    closeSnipeModal() {
-        this.setState({ snipeModal: false })
-    }
-
-    handleSnipeWallet = async (event) => {
-        this.setState({snipeWalletAddress: event.target.value})
-    }
-
 
     render() {
         let walletNumber = 0
@@ -218,11 +56,11 @@ class Home extends React.Component {
             <div className="container flex column">
 
                 <div className="w-100  buttonContainer flex justify-right smallMarginTop smallMarginBottom">
-                    {this.context.global.state.currentAccount && this.context.global.state.bddWallet &&
+                    {this.context.global.state.currentAccount &&
                         <button onClick={() =>
                             this.connectWallet()} style={{width: "15%",lineHeight: "17px"}} className="coolButton smallMarginRight">
                             {this.context.global.state.currentAccount ?
-                                "Connected: " + this.context.global.state.bddWallet.truncBuyerAddress : "Connect Wallet"}
+                                "Connected: " + this.context.global.state.currentAccountTrunc : "Connect Wallet"}
 
                         </button>
                     }
@@ -305,12 +143,12 @@ class Home extends React.Component {
                                         <div className="modalHeader">
                                             <h3>Logs : </h3>
                                         </div>
-                                        <div className="modalContent">
+                                        <div className="modalContent logs">
                                             {wallet.logs.map((log, index) => {
                                                 return(
                                                     <div key={index}>
                                                         <span>
-                                                            <Moment unix format="YYYY/MM/DD HH:MM:ss">{log.date}</Moment> : {log.text}
+                                                            <Moment unix format="YYYY/MM/DD HH:mm:ss">{log.date}</Moment> : {log.text}
                                                         </span>
                                                     </div>
                                                 )
@@ -330,49 +168,14 @@ class Home extends React.Component {
                     <div className="w-65 flex column">
                         <div className="flex justify-center premiumBanner">
                             <h3>
-                                Launch Snipe
+                                Claim your goldmine
                             </h3>
                         </div>
                         <div className="snipeContainer flex column align-center">
-                            <div style={{paddingBottom: "4%"}} className="w-70 smallWrapper flex column">
-                                <input onChange={(e) => {this.handlePresale(e)}} className="w-100" name="presaleAddress" placeholder="Presale address" value={this.state.presaleAddress} />
-                                <input onChange={(e) => {this.handleContribute(e)}}  className="w-100" name="bnbAmount" placeholder="Contribute (example: 0.1 BNB)" value={this.state.contributeAmount} />
-                                <input onChange={(e) => {this.handleGasPrice(e)}}  className="w-100" name="bnbAmount" placeholder="gasPrice (example: 5)" value={this.state.gasPrice} />
-                                <input onChange={(e) => {this.handleGasLimit(e)}}  className="w-100" name="bnbAmount" placeholder="gasLimit (example: 500000)" value={this.state.gasLimit} />
-                                <DatePicker placeholderText="Presale Start Time (available on DxSale)" showTimeSelect dateFormat="Pp" timeIntervals="1" selected={this.state.presaleStartTime} onChange={(date) => this.handlePresaleStartTime(date)} />
-                                <select onChange={(event) => this.handleSnipeWallet(event)}>
-                                    <option>Choose a snipe wallet to make this snipe</option>
-                                    {this.context.global.state.bddWallet && this.context.global.state.bddWallet.snipeWallets.map((wallet, index) => {
-                                        if(wallet.state === "available"){
-                                            return(
-                                                <option key={index} value={wallet.address}>{wallet.address}</option>
-                                            )
-                                        }
-                                        return null
-                                    })}
-                                </select>
+                            <div style={{marginTop: "5%"}} className="flex w-100 rollContainer justify-center smallPaddingBottom">
+                                <button className="coolButton reverseColor" onClick={() => this.claim()}> Claim </button>
                             </div>
 
-                            <div className="flex w-100 rollContainer justify-center smallPaddingBottom">
-                                <button className="coolButton reverseColor" onClick={() => this.openSnipeModal()}> Snipe this presale</button>
-                            </div>
-                            <div className="flex w-100 rollContainer justify-center smallPaddingTop">
-                                <div className="w-70">
-                                    <span>Please verify the minimum BNB amount for the presale, or your snipe will fail.</span>
-                                </div>
-                            </div>
-                            <Modal isOpen={this.state.snipeModal} onClose={() => this.closeSnipeModal()}>
-                                <div className="modalHeader">
-                                    <h3>Please verify below informations : </h3>
-                                </div>
-                                <div className="modalContent flex justify-center">
-                                    <span>Presale start in : {this.state.countDown}</span>
-                                    <span>BNB amount : {this.state.contributeAmount} </span>
-                                </div>
-                                <div className="modalFooter">
-                                    <button onClick={() => this.launchSnipe()} className="coolButton">Confirm snipe</button>
-                                </div>
-                            </Modal>
                         </div>
                     </div>
                 </div>

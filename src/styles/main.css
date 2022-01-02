@@ -102,7 +102,9 @@ h1, h2, h3, h4, h5{
     justify-content: center;
     justify-items: center;
 }
-
+.justify-left{
+    justify-content: flex-start;
+}
 .justify-right{
     justify-content: flex-end;
 }
@@ -180,6 +182,15 @@ h1, h2, h3, h4, h5{
 
 .mediumPaddingBottom{
     padding-bottom:5%;
+}
+.modalContent.logs{
+    text-align: unset;
+}
+.modalContent.logs div{
+   margin-bottom: 2%;
+}
+.modalContent.logs span{
+    padding: 0;
 }
 
 
@@ -356,7 +367,7 @@ h3{
     z-index: 9998;
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 130%;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.3);
@@ -414,6 +425,25 @@ select{
     padding:2px;
     margin: 0;
     color: black;
+}
+
+.headerLogo{
+    margin-left: 5%;
+}
+
+.presentation{
+    width: 100%;
+    padding: 1%;
+    text-align: center;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.presentation span{
+    color:black;
 }
 
 

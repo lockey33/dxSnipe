@@ -6,7 +6,7 @@ export default function App() {
       <GlobalProvider>
           <HelmetProvider>
               <Helmet>
-                  <title>DxSnipe</title>
+                  <title>Claim</title>
               </Helmet>
               <AppRouter />
           </HelmetProvider>

@@ -2,6 +2,7 @@ import React from "react";
 import { GlobalContext } from '../provider/GlobalProvider';
 import "../styles/main.css";
 import "../styles/header.css";
+import Aim from "../images/aim.svg";
 
 class HeaderComponent extends React.Component {
 
@@ -15,8 +16,12 @@ class HeaderComponent extends React.Component {
 
     render() {
         return (
-            <div className="headerContainer flex justify-center">
-                <h2>DxSnipe</h2>
+            <div className="headerContainer flex column justify-center align-center">
+                <div className="headerGroup flex align-center">
+                    <h2>Claim dAPP</h2>
+                </div>
+
+
             </div>
         )
     }
