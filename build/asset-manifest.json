@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9e3ff422.chunk.css",
+    "main.js": "/static/js/main.efb55599.chunk.js",
+    "main.js.map": "/static/js/main.efb55599.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.44131ac7.js",
+    "runtime-main.js.map": "/static/js/runtime-main.44131ac7.js.map",
+    "static/css/2.b93f55a3.chunk.css": "/static/css/2.b93f55a3.chunk.css",
+    "static/js/2.a4a80aaa.chunk.js": "/static/js/2.a4a80aaa.chunk.js",
+    "static/js/2.a4a80aaa.chunk.js.map": "/static/js/2.a4a80aaa.chunk.js.map",
+    "static/js/3.c3613e26.chunk.js": "/static/js/3.c3613e26.chunk.js",
+    "static/js/3.c3613e26.chunk.js.map": "/static/js/3.c3613e26.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.b93f55a3.chunk.css.map": "/static/css/2.b93f55a3.chunk.css.map",
+    "static/css/main.9e3ff422.chunk.css.map": "/static/css/main.9e3ff422.chunk.css.map",
+    "static/js/2.a4a80aaa.chunk.js.LICENSE.txt": "/static/js/2.a4a80aaa.chunk.js.LICENSE.txt",
+    "static/media/main.css": "/static/media/FrutigerLTStd-Roman.3afbe016.otf",
+    "static/media/aim.0c1e5aa2.svg": "/static/media/aim.0c1e5aa2.svg",
+    "static/media/bscscan.89150c66.svg": "/static/media/bscscan.89150c66.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.44131ac7.js",
+    "static/css/2.b93f55a3.chunk.css",
+    "static/js/2.a4a80aaa.chunk.js",
+    "static/css/main.9e3ff422.chunk.css",
+    "static/js/main.efb55599.chunk.js"
+  ]
+}
