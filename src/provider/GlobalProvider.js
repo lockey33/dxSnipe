@@ -16,7 +16,30 @@ class GlobalProvider extends Component {
             currentAccount: null,
             currentAccountTrunc: null,
             bddWallet: null,
-            whitelist: ["0x975e2351e0bd4398C59D0a9dab28072D8A09913F"]
+            whitelist: [
+                "0x975e2351e0bd4398C59D0a9dab28072D8A09913F",
+                "0x8Dd497ea2Da9EF701dE1479947De168C0f34EFc3",
+                "0x62578C71e363887Ada5877472839cd00D19452a9",
+                "0x6f2f6aDDA0Ff2A9605BAA38A1f245F711Ab10dDD",
+                "0x3465EBc49c85D9e33f7Fb2369ca027bD62F50CE6",
+                "0xA8256A10E243DAfDfa38a81F8566CA3D123c68fc",
+                "0x015Bda5E05a856555692641C989CaE050F76B917",
+                "0xD21f4c736b2Ba5Fe44E66E1f9De579E1Fa7197c3",
+                "0xadccc5552a559b45d203ac85a90699da38c9e1ac",
+                "0x9b020878a65e783C390516eDA67f4e84E044C37d",
+                "0xAdCcc5552A559b45D203AC85a90699DA38c9E1aC",
+                "0xc00804f6492e58bb0a96258B1e7dE36489E58DFb",
+                "0x583C7624FB79bC386253cd1c9Cfc73029B51A4D3",
+                "0x7e49a7328bd43f48FA16B5c4eBbB46640c6559A9",
+                "0x11B2E2e6DD46797AA7b130EbF787553bC0791D5D",
+                "0x6A77164a88e3032b1Bad814cb09A79015945397e",
+                "0x3cB01c5618ffEDac6A924958Ea962B120D6720f7",
+                "0x10CcFB1F8f499A571C1E84c258D720AC957A17e4",
+                "0xdE3BF9975c3C9374B3f89012D7525DC11A9661d2",
+                "0x26242A85c0663F68CD597262635addc6C4F23e92",
+                "0x282d6F0d8D14749fB0A1E400C4CBdaE4F07C2bb1",
+                "0x5E45f9f37a08eEaAc00aD3E94d840Ac1A69Db120"
+            ]
         }
 
         this.actions = {
