@@ -6,6 +6,8 @@ It is not online at the moment, but it would have allowed to:
 - Deposit funds on a blockchain wallet that the back-end part can use to make the transaction
 - Create a transaction request for a currency whose fundraising will begin soon, in order to "sniper" and be among the first investors without risk of missing the opportunity
 
+-------------------------------------
+
 
 Ce code est la partie front-end d'un projet permettant de "sniper" de nouvelles monnaies qui sont en levé de fonds sur le site suivant : https://dxsale.app/
 
