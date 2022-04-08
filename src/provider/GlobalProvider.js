@@ -125,6 +125,7 @@ class GlobalProvider extends Component {
     getCurrentAccount = async() => {
 
          const accounts = await this.state.ethereum.request({ method: 'eth_accounts' })
+         console.log(accounts)
          await this.handleAccountsChanged(accounts)
     }
 
